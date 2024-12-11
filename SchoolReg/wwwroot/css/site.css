@@ -1,0 +1,32 @@
+/* site.css */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+
+    .sidebar .nav-link {
+        color: #555;
+        font-weight: bold;
+    }
+
+        .sidebar .nav-link:hover {
+            color: #007bff;
+            background-color: #e9ecef;
+        }
+
+.container-fluid {
+    margin-left: 250px; /* Ensure content area is not hidden behind the sidebar */
+}
+
+.navbar {
+    padding: 10px;
+}
+
+.nav-item {
+    margin: 10px 0;
+}
+}

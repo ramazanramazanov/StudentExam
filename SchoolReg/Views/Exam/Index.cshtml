@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Imtahan";
+}
+@model IEnumerable<SchoolReg.Models.School.Exam>
+@{
+    var successMessage = TempData["SuccessMessage"];
+    var errorMessage = TempData["ErrorMessage"];
+}
+
+@if (successMessage != null)
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+@if (errorMessage != null)
+{
+    <div class="alert alert-success">
+        @errorMessage
+    </div>
+}
+
+<h1>Şagirdlərin siyahisi</h1>
+        <a href="@Url.Action("Create","Exam")" class="btn btn-primary">Imtahan yarat</a>
+        </br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>İmtahan kodu</th>
+                    <th>Şagirdin adı</th>
+                    <th>Dərsin və sinif</th>
+                    <th>Qiyməti</th>
+                    <th>İmtahan tarixi</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var exam in Model)
+                {
+                    <tr>
+                        <td>@exam.ExamId</td>
+                        <td>@String.Format("{0} {1}", exam.Student.Name,exam.Student.Surname)</td>
+                        <td>@String.Format("{0} sinif - {1}", exam.Lesson.Name, exam.Lesson.Grade)</td>
+                        <td>@exam.Score</td>
+                        <td>@exam.Date</td>
+                        <td>
+                        <a href="@Url.Action("Details", "Exam", 
+                            new { id = exam.ExamId,sid= exam.StudentId,lid= exam.LessonId, score = exam.Score,date = exam.Date })" class="btn btn-primary">Düzəliş et</a>
+                    
+                        </td>
+                        <td>
+                            
+                            <a href="@Url.Action("Delete", "Exam", new { id = exam.ExamId })" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this exam?');">
+                                Sil
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+                      

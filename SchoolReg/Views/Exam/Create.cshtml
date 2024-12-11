@@ -1,0 +1,39 @@
+﻿@model SchoolReg.Models.ViewModel.ExamViewModel
+@{
+    var isCreateMode = Model.ExamId == 0;
+    ViewData["Title"] = isCreateMode ? "Imtahanin yaradilmasi" : "Imtahan kodu - " +Model.ExamId;
+}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-action="@(isCreateMode ? "Create" : "Save")"  method="post">
+    <input asp-for="ExamId" type="text" class="form-control" id="ExamId" name="ExamId" value="@Model.ExamId" style="display:none" />
+
+    <div class="form-group" style="width: 300px;">
+        <label for="Date">İmtahan tarixi</label>
+        <input type="datetime-local" class="form-control" id="Date" name="Date" value="@Model.Date.ToString("yyyy-MM-ddTHH:mm")" />
+    </div>
+    
+    <div class="form-group" style="width: 300px;">
+        <label for="StudentId">Şagird</label>
+        <select asp-for="StudentId" class="form-control" asp-items="Model.Students" required>
+            <option value="">Şagirdi secin</option>
+        </select>
+    </div>
+    <div class="form-group" style="width: 300px;">
+        <label for="LessonId">Dərs</label>
+        <select asp-for="LessonId" class="form-control" asp-items="Model.Lessons" required>
+            <option value="">Dərsi secin</option>
+        </select>
+    </div>
+    <div class="form-group" style="width: 300px;">
+        <label for="Grade">Qiymət</label>
+        <select asp-for="Score" class="form-control" asp-items="Model.Scores" required>
+            <option value="">Qiymət secin</option>
+        </select>
+    </div>
+
+    
+    <button type="submit" class="btn btn-primary mt-3">Yadda saxla</button>
+    <a href="@Url.Action("Index", "Exam")" class="btn btn-secondary  mt-3">Siyahıya bax</a>
+
+</form>

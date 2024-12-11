@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Şagird";
+}
+@model IEnumerable<SchoolReg.Models.School.Student>
+@{
+    var successMessage = TempData["SuccessMessage"];
+    var errorMessage = TempData["ErrorMessage"];
+}
+
+@if (successMessage != null)
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+@if (errorMessage != null)
+{
+    <div class="alert alert-success">
+        @errorMessage
+    </div>
+}
+
+<h1>Şagirdlərin siyahisi</h1>
+        <a href="@Url.Action("Create","Student")" class="btn btn-primary">Şagird əlavə et</a>
+        </br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Kod</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Sinif</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.StudentId</td>
+                        <td>@student.Name</td>
+                        <td>@student.Surname</td>
+                        <td>@student.Grade</td>
+                        <td>
+                        <a href="@Url.Action("Details", "Student", 
+                            new { id = student.StudentId,name= student.Name,surname= student.Surname, grade = student.Grade })" class="btn btn-primary">Düzəliş et</a>
+                        </td>
+                        <td>
+
+                    <a href="@Url.Action("Delete", "Student", new { id = student.StudentId })" class="btn btn-danger" onclick="return confirm('Şagirdi silmeye eminsiz?');">
+                                Sil
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+                      

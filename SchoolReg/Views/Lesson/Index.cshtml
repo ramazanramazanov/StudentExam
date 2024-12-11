@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Dərslər";
+}
+@model IEnumerable<SchoolReg.Models.School.Lesson>
+@{
+    var successMessage = TempData["SuccessMessage"];
+    var errorMessage = TempData["ErrorMessage"];
+}
+
+@if (successMessage != null)
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+@if (errorMessage != null)
+{
+    <div class="alert alert-success">
+        @errorMessage
+    </div>
+}
+
+<h1>Dərslərin siyahisi</h1>
+<a href="@Url.Action("Create","Lesson")" class="btn btn-primary">Dərs əlavə et</a>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Kod</th>
+                    <th>Ad</th>
+                    <th>Sinif</th>
+                    <th>Müəllimin adı</th>
+                    <th>Müəllimin soyadı</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lesson in Model)
+                {
+                    <tr>
+                        <td>@lesson.LessonId</td>
+                        <td>@lesson.Name</td>
+                        <td>@lesson.Grade</td>
+                        <td>@lesson.Teachername</td>
+                        <td>@lesson.Teachersurname</td>
+                        <td>
+                        <a href="@Url.Action("Details", "Lesson", 
+                            new { id = lesson.LessonId,name=lesson.Name, grade = lesson.Grade,tname=lesson.Teachername,tsname=lesson.Teachersurname })" class="btn btn-primary">Düzəliş et</a>
+                        </td>
+                         <td>
+
+                          <a href="@Url.Action("Delete", "Lesson", new { id = lesson.LessonId })" class="btn btn-danger" onclick="return confirm('Dərsi silmeye eminsiz?');">
+                                Sil
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+                      
